@@ -1,0 +1,145 @@
+<div class="wrapper ">
+        {{ partial:segments_sidebar }}
+        <div class="main-panel">
+            <!-- Navbar -->
+            {{ partial:navbar }}
+            <!-- End Navbar -->
+            <div class="content pt-0">
+              <div class="content">
+                <div class="container-fluid">
+                  <div class="row">
+                    <div class="col-sm-11 ml-auto mr-auto">
+                      <div class="card mb-0">
+                        
+						
+       <div id="container" style="height: 700px"></div>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-gl/dist/echarts-gl.min.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-stat/dist/ecStat.min.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/dataTool.min.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/china.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/world.js"></script>
+       
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/bmap.min.js"></script>
+       <script type="text/javascript">
+	   
+	   
+		var dom = document.getElementById("container");
+		var myChart = echarts.init(dom);
+		var app = {};
+		option = null;
+		app.title = '';
+
+		var maindata = {{ site:cohartAnalysis }};
+		
+		console.log(maindata);
+		//if()
+		
+		var hours = maindata.x_cohort_period;
+		var days = maindata.y_cohort_groups;
+		
+			
+		var  data = maindata.data;
+		//console.log(maindata.chart_1.x_cohort_period);
+		console.log('dfd3');
+		console.log(maindata.y_cohort_groups);
+		
+		var ReverseArray = [];
+		var length = maindata.y_cohort_groups.length;
+		for(var i = length-1;i>=0;i--){
+			ReverseArray.push(maindata.y_cohort_groups[i]);
+		}
+		console.log(JSON.stringify(ReverseArray));
+		data = data.map(function (item) {
+			//return [item[1], item[0], item[2] || '-'];
+			return [item[1], item[0], item[2] || '-'];
+		});
+
+		option = {
+			tooltip: {
+				position: 'top'
+			},
+			animation: false,
+			grid: {
+				height: '50%',
+				y: '10%'
+			},
+			title: {
+				show: data.length === 0,
+				textStyle: {
+					color: "grey",
+					fontSize: 20
+				},
+				text: maindata.message,
+				left: "center",
+				top: "center"
+			},
+			xAxis: {
+				type: 'category',
+				data: hours,
+				splitArea: {
+					show: true
+				}
+			},
+			yAxis: {
+				type: 'category',
+				data: maindata.y_cohort_groups,
+				splitArea: {
+					show: true
+				}
+			},
+			visualMap: {
+				min: 0,
+				max: 1,
+				calculable: true,
+				orient: 'horizontal',
+				left: 'center',
+				bottom: '15%'
+			},
+			series: [{
+				name: 'Cohart Analysis',
+				type: 'heatmap',
+				data: data,
+				label: {
+					normal: {
+						show: true
+					}
+				},
+				itemStyle: {
+					emphasis: {
+						shadowBlur: 10,
+						shadowColor: 'rgba(0, 0, 0, 0.5)'
+					}
+				}
+			}]
+		};;
+		if (option && typeof option === "object") {
+			myChart.setOption(option, true);
+		}
+       </script>
+  
+                      </div>
+                      
+                    </div>
+                  </div>
+                  <div class="row mt-3">
+                    <div class="col-sm-11 ml-auto mr-auto">
+                      <div class="table-responsive">
+                        <div class="material-datatables">
+                          <table id="product_data" class="table small"></table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Footer and scripts -->
+             
+            </div>
+          </div>
+        </div>
+    </div>
+    {{ partial:corejs }}
+    {{ partial:formsjs }}
+    {{ partial:sweetalertjs }}
+
