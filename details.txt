@@ -1,0 +1,8 @@
+
+services require date
+---------------------
+http://localhost/Statamic/ecommerce/sales-time
+http://localhost/Statamic/ecommerce/sales-billing
+http://localhost/Statamic/ecommerce/average-order-value
+http://localhost/Statamic/ecommerce/product-bundle
+http://localhost/Statamic/ecommerce/funnel-analysis
